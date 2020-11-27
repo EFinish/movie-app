@@ -3,9 +3,10 @@
       <b-spinner v-if="genres.length === 0" />
       <b-list-group v-if="genres.length > 0">
         <b-list-group-item
-          v-for="genre in genres"
+          v-for="(genre, index) in genres"
           :key="genre.id"
-          :href="`#/${genre.id}`">
+          :href="`#/${genre.id}`"
+          :ref="`genre-${index}`">
           {{genre.name}}
         </b-list-group-item>
       </b-list-group>

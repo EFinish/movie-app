@@ -30,9 +30,24 @@ const TheMovieDb = (function () {
     }
   }
 
+  async function getMovieDetails(movieId) {
+    try {
+      const response = await axios.get(
+        `${apiPrefix}/movie/${movieId}?api_key=${apiKey}`,
+      );
+
+      return response.data;
+    } catch (error) {
+      alert(`Error! Error while fetching discover movies. ${error}`);
+
+      return null;
+    }
+  }
+
   return {
     getGenres,
     getDiscoverMovie,
+    getMovieDetails,
   };
 }());
 

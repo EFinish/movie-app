@@ -7,15 +7,8 @@ const GenreService = (function () {
     return responseData.genres;
   }
 
-  async function getMoviesByGenreId(genreId) {
-    const responseData = await TheMovieDb.getDiscoverMovie({ genreId });
-
-    return responseData;
-  }
-
   return {
     getGenres,
-    getMoviesByGenreId,
   };
 }());
 

@@ -20,6 +20,15 @@ const routes = [
       next();
     },
   },
+  {
+    path: '/movie/:movieId',
+    name: 'Home',
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      Store.dispatch('updateMovieDetailsByMovieId', to.params.movieId);
+      next();
+    },
+  },
 ];
 
 const router = new VueRouter({
