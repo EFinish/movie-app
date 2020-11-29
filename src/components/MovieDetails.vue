@@ -121,6 +121,7 @@ export default {
   methods: {
     handlePressBack() {
       this.$router.go(-1);
+      this.$store.commit('setMovieDetails', null);
     },
     focusRef() {
       const refs = this.$refs[`moviedetails-${this.refNumber}`];
