@@ -104,7 +104,7 @@ export default {
   methods: {
     focusRef() {
       const refs = this.$refs[`moviegrid-${this.refNumber}`];
-      if (refs[0]) {
+      if (refs && refs[0]) {
         refs[0].focus();
       }
     },
