@@ -32,6 +32,9 @@ export default {
   mounted() {
     this.$store.dispatch('initGenres');
   },
+  updated() {
+    this.focusRef();
+  },
   watch: {
     '$store.state.focusSection': function (nv) {
       if (nv !== 'genre') {

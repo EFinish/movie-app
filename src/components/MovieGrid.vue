@@ -33,6 +33,9 @@ export default {
       this.$store.dispatch('updateMoviesByGenreId', this.$route.params.genreId);
     }
   },
+  updated() {
+    this.focusRef();
+  },
   computed: {
     ...mapState({
       movies: 'movies',

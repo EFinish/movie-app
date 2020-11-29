@@ -82,6 +82,9 @@ export default {
   data: () => ({
     refNumber: 0,
   }),
+  mounted() {
+    this.focusRef();
+  },
   watch: {
     '$store.state.focusSection': function (nv) {
       if (nv !== 'moviedetails') {
