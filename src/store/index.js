@@ -47,29 +47,39 @@ export default new Vuex.Store({
     async updateMovieDetailsByMovieId(context, movieId) {
       const movieDetails = await MovieService.getMovieByMovieId(movieId);
 
-      console.log('movie details', movieDetails);
-
       context.commit('setMovieDetails', movieDetails);
     },
     handleMovement(context, direction) {
-      // console.log('movement', direction);
+      switch (context.state.focusPoint.componentSection) {
+        case 'moviedetails':
+          context.dispatch('handleMovementFromMovieDetails', direction);
+          break;
+        case 'genre':
+          context.dispatch('handleMovementFromGenreList', direction);
+          break;
+        case 'moviegrid':
+          context.dispatch('handleMovementFromMovieGrid', direction);
+          break;
+        default:
+          break;
+      }
+    },
+    handleMovementFromGenreList(context, direction) {
       let newRefNumber = context.state.focusPoint.refNumber;
-      const newComponentSection = context.state.focusPoint.componentSection;
+      let newComponentSection = context.state.focusPoint.componentSection;
 
       switch (direction) {
-        case 'left':
-
-          break;
         case 'up':
-          newRefNumber += 1;
-          break;
-        case 'right':
-
-          break;
-        case 'down':
           if (newRefNumber > 0) {
             newRefNumber -= 1;
           }
+          break;
+        case 'down':
+          newRefNumber += 1;
+          break;
+        case 'right':
+          newComponentSection = 'moviegrid';
+          newRefNumber = 0;
           break;
         default:
           break;
@@ -77,15 +87,41 @@ export default new Vuex.Store({
 
       context.commit('setFocusPoint', { refNumber: newRefNumber, componentSection: newComponentSection });
     },
-    handleEnter() {
+    handleMovementFromMovieGrid(context, direction) {
+      let newRefNumber = context.state.focusPoint.refNumber;
+      let newComponentSection = context.state.focusPoint.componentSection;
+
+      switch (direction) {
+        case 'up':
+          if (newRefNumber > 3) {
+            newRefNumber -= 4;
+          }
+          break;
+        case 'down':
+          newRefNumber += 4;
+          break;
+        case 'left':
+          if (newRefNumber % 4 === 0) {
+            newComponentSection = 'genre';
+            newRefNumber = 0;
+            break;
+          }
+          newRefNumber -= 1;
+          break;
+        case 'right':
+          newRefNumber += 1;
+          break;
+        default:
+          break;
+      }
+
+      context.commit('setFocusPoint', { refNumber: newRefNumber, componentSection: newComponentSection });
+    },
+    handleMovementFromMovieDetails() {
 
     },
     handleBack() {
 
-    },
-    focusToFocusPoint(context) {
-      const refName = `${context.state.focusPoint.componentSection}-${context.state.focusPoint.refNumber}`;
-      this.$refs[refName].focus();
     },
   },
   modules: {

@@ -21,11 +21,11 @@
       :key-code="40"
       :preventDefault="true"
       @success="handlePressDown" />
-    <Keypress
+    <!-- <Keypress
       key-event="keydown"
       :key-code="13"
       :preventDefault="true"
-      @success="handlePressEnter" />
+      @success="handlePressEnter" /> -->
     <Keypress
       key-event="keydown"
       :key-code="66"
@@ -57,9 +57,9 @@ export default {
     handlePressDown() {
       this.$store.dispatch('handleMovement', 'down');
     },
-    handlePressEnter() {
-      console.log('enter');
-    },
+    // handlePressEnter() {
+    //   console.log('enter');
+    // },
     handlePressBack() {
       console.log('back');
     },

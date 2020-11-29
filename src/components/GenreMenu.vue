@@ -25,7 +25,11 @@ export default {
   },
   watch: {
     '$store.state.focusPoint': function (nv) {
-      const refName = `${nv.componentSection}-${nv.refNumber}`;
+      if (nv.componentSection !== 'genre') {
+        return;
+      }
+
+      const refName = `genre-${nv.refNumber}`;
       const ref = this.$refs[refName][0];
       ref.focus();
     },
