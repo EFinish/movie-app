@@ -39,12 +39,6 @@ export default new Vuex.Store({
 
       context.commit('setGenres', genres);
     },
-    initFocusPointGenre(context) {
-      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'genre' });
-    },
-    initFocusPointMovieDetails(context) {
-      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'moviedetails' });
-    },
     async updateMoviesByGenreId(context, genreId) {
       const movies = await MovieService.getMoviesByGenreId(genreId);
 
@@ -60,6 +54,12 @@ export default new Vuex.Store({
       const movieDetails = await MovieService.getMovieByMovieId(movieId);
 
       context.commit('setMovieDetails', movieDetails);
+    },
+    initFocusPointGenre(context) {
+      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'genre' });
+    },
+    initFocusPointMovieDetails(context) {
+      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'moviedetails' });
     },
     handleMovement(context, direction) {
       switch (context.state.focusPoint.componentSection) {

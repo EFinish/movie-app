@@ -6,7 +6,8 @@
           v-for="(genre, index) in genres"
           :key="genre.id"
           :href="`#/${genre.id}`"
-          :ref="`genre-${index}`">
+          :ref="`genre-${index}`"
+          class="genre-list-item">
           {{genre.name}}
         </b-list-group-item>
       </b-list-group>
@@ -39,3 +40,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.genre-list-item {
+  background-color: black;
+  color: white;
+  font-family: sans-serif
+}
+.genre-list-item:focus {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+  border: 3px solid orange
+}
+</style>

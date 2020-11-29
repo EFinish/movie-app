@@ -50,3 +50,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#app {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+</style>

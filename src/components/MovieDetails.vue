@@ -26,14 +26,29 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-col>
-            <b-button :ref="`moviedetails-0`">Play</b-button>
+          <b-col center>
+            <b-button
+              class="movie-details-button"
+              :ref="`moviedetails-0`">
+              <b-icon-play-fill />
+              Play
+            </b-button>
           </b-col>
-          <b-col>
-            <b-button :ref="`moviedetails-1`">Trailer</b-button>
+          <b-col center>
+            <b-button
+              class="movie-details-button"
+              :ref="`moviedetails-1`">
+              <b-icon-eye-fill />
+              Trailer
+            </b-button>
           </b-col>
-          <b-col>
-            <b-button :ref="`moviedetails-2`">Add to List</b-button>
+          <b-col center>
+            <b-button
+              class="movie-details-button"
+              :ref="`moviedetails-2`">
+              <b-icon-list />
+              Add to List
+            </b-button>
           </b-col>
         </b-row>
       </b-col>
@@ -81,3 +96,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .movie-details-button {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    border: none;
+  }
+  .movie-details-button:focus {
+    background-color: orange;
+    color: white;
+    font-family: sans-serif
+  }
+</style>
