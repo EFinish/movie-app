@@ -12,7 +12,7 @@ const routes = [
     name: 'Home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      Store.dispatch('initFocusPointGenre');
+      Store.dispatch('updateFocusSection', 'genre');
       next();
     },
   },
@@ -21,7 +21,7 @@ const routes = [
     name: 'Home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      Store.dispatch('initFocusPointGenre');
+      Store.dispatch('updateFocusSection', 'moviegrid');
       next();
     },
   },
@@ -31,7 +31,7 @@ const routes = [
     component: Details,
     beforeEnter: (to, from, next) => {
       Store.dispatch('updateMovieDetailsByMovieId', to.params.movieId);
-      Store.dispatch('initFocusPointMovieDetails');
+      Store.dispatch('updateFocusSection', 'moviedetails');
       next();
     },
   },

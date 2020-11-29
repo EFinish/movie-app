@@ -26,7 +26,7 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-col center>
+          <b-col class="text-center">
             <b-button
               class="movie-details-button"
               :ref="`moviedetails-0`">
@@ -34,7 +34,7 @@
               Play
             </b-button>
           </b-col>
-          <b-col center>
+          <b-col class="text-center">
             <b-button
               class="movie-details-button"
               :ref="`moviedetails-1`">
@@ -42,7 +42,7 @@
               Trailer
             </b-button>
           </b-col>
-          <b-col center>
+          <b-col class="text-center">
             <b-button
               class="movie-details-button"
               :ref="`moviedetails-2`">
@@ -76,22 +76,54 @@ export default {
   computed: {
     ...mapState({
       movieDetails: 'movieDetails',
+      focusSection: 'focusSection',
     }),
   },
+  data: () => ({
+    refNumber: 0,
+  }),
   watch: {
-    '$store.state.focusPoint': function (nv) {
-      if (nv.componentSection !== 'moviedetails') {
+    '$store.state.focusSection': function (nv) {
+      if (nv !== 'moviedetails') {
         return;
       }
 
-      const refName = `moviedetails-${nv.refNumber}`;
-      const ref = this.$refs[refName];
-      ref.focus();
+      this.focusRef();
+    },
+    '$store.state.latestMovement': function (nv) {
+      if (this.focusSection !== 'moviedetails') {
+        return;
+      }
+
+      switch (nv) {
+        case 'left':
+        case 'left2':
+          if (this.refNumber > 0) {
+            this.refNumber -= 1;
+            this.focusRef();
+          }
+          break;
+        case 'right':
+        case 'right2':
+          if (this.refNumber < 2) {
+            this.refNumber += 1;
+            this.focusRef();
+          }
+          break;
+        default:
+          break;
+      }
     },
   },
   methods: {
     handlePressBack() {
       this.$router.go(-1);
+    },
+    focusRef() {
+      const refs = this.$refs[`moviedetails-${this.refNumber}`];
+      if (refs) {
+        refs.focus();
+      }
     },
   },
 };

@@ -33,19 +33,19 @@ export default {
   },
   methods: {
     ...mapActions([
-      'handleMovement',
+      'updateMovement',
     ]),
     handlePressLeft() {
-      this.$store.dispatch('handleMovement', 'left');
+      this.$store.dispatch('updateMovement', 'left');
     },
     handlePressUp() {
-      this.$store.dispatch('handleMovement', 'up');
+      this.$store.dispatch('updateMovement', 'up');
     },
     handlePressRight() {
-      this.$store.dispatch('handleMovement', 'right');
+      this.$store.dispatch('updateMovement', 'right');
     },
     handlePressDown() {
-      this.$store.dispatch('handleMovement', 'down');
+      this.$store.dispatch('updateMovement', 'down');
     },
   },
 };

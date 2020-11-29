@@ -22,20 +22,59 @@ export default {
   computed: {
     ...mapState({
       genres: 'genres',
+      focusSection: 'focusSection',
+      movies: 'movies',
     }),
   },
+  data: () => ({
+    refNumber: 0,
+  }),
   mounted() {
     this.$store.dispatch('initGenres');
   },
   watch: {
-    '$store.state.focusPoint': function (nv) {
-      if (nv.componentSection !== 'genre') {
+    '$store.state.focusSection': function (nv) {
+      if (nv !== 'genre') {
         return;
       }
 
-      const refName = `genre-${nv.refNumber}`;
-      const ref = this.$refs[refName][0];
-      ref.focus();
+      this.focusRef();
+    },
+    '$store.state.latestMovement': function (nv) {
+      if (this.focusSection !== 'genre') {
+        return;
+      }
+
+      switch (nv) {
+        case 'up':
+        case 'up2':
+          if (this.refNumber > 0) {
+            this.refNumber -= 1;
+            this.focusRef();
+          }
+          break;
+        case 'down':
+        case 'down2':
+          this.refNumber += 1;
+          this.focusRef();
+          break;
+        case 'right':
+        case 'right2':
+          if (this.movies.length > 0) {
+            this.$store.dispatch('updateFocusSection', 'moviegrid');
+          }
+          break;
+        default:
+          break;
+      }
+    },
+  },
+  methods: {
+    focusRef() {
+      const refs = this.$refs[`genre-${this.refNumber}`];
+      if (refs[0]) {
+        refs[0].focus();
+      }
     },
   },
 };
