@@ -11,13 +11,17 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    beforeEnter: (to, from, next) => {
+      Store.dispatch('initFocusPointGenre');
+      next();
+    },
   },
   {
     path: '/:genreId',
     name: 'Home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      Store.dispatch('updateMoviesByGenreId', to.params.genreId);
+      Store.dispatch('initFocusPointGenre');
       next();
     },
   },
@@ -27,6 +31,7 @@ const routes = [
     component: Details,
     beforeEnter: (to, from, next) => {
       Store.dispatch('updateMovieDetailsByMovieId', to.params.movieId);
+      Store.dispatch('initFocusPointMovieDetails');
       next();
     },
   },

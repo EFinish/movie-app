@@ -1,8 +1,8 @@
 import TheMovieDb from '../utils/clients/TheMovieDb';
 
 const MovieService = (function () {
-  async function getMoviesByGenreId(genreId) {
-    const responseData = await TheMovieDb.getDiscoverMovie({ genreId });
+  async function getMoviesByGenreId(genreId, page = 1) {
+    const responseData = await TheMovieDb.getDiscoverMovie({ genreId, page });
 
     return responseData;
   }

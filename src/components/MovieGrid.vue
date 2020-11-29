@@ -22,12 +22,22 @@ import { chunk } from 'lodash';
 
 export default {
   name: 'MovieGrid',
+  data() {
+    return {
+      pageNumber: 1,
+    };
+  },
+  mounted() {
+    if (this.$route.params.genreId) {
+      this.$store.dispatch('updateMoviesByGenreId', this.$route.params.genreId);
+    }
+  },
   computed: {
     ...mapState({
       movies: 'movies',
     }),
     movieChunks() {
-      return chunk(this.movies.results, 4);
+      return chunk(this.movies, 4);
     },
   },
   watch: {
@@ -37,7 +47,18 @@ export default {
       }
 
       const refName = `moviegrid-${nv.refNumber}`;
-      const ref = this.$refs[refName][0];
+      const refs = this.$refs[refName];
+      if (!refs) {
+        this.pageNumber += 1;
+        // fetch new
+        this.$store.dispatch(
+          'addMoviesPageByGenreId',
+          { page: this.pageNumber, genreId: this.$route.params.genreId },
+        );
+        return;
+      }
+
+      const ref = refs[0];
       ref.focus();
     },
   },

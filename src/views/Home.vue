@@ -22,9 +22,9 @@ import MovieGrid from '@/components/MovieGrid.vue';
 
 export default {
   name: 'Home',
-  beforeCreate() {
-    this.$store.dispatch('initState');
-  },
+  // beforeCreate() {
+  //   this.$store.dispatch('initGenres');
+  // },
   components: {
     GenreMenu,
     MovieGrid,

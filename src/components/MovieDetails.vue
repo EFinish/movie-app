@@ -27,13 +27,13 @@
         </b-row>
         <b-row>
           <b-col>
-            <b-button>Play</b-button>
+            <b-button :ref="`moviedetails-0`">Play</b-button>
           </b-col>
           <b-col>
-            <b-button>Trailer</b-button>
+            <b-button :ref="`moviedetails-1`">Trailer</b-button>
           </b-col>
           <b-col>
-            <b-button>Add to List</b-button>
+            <b-button :ref="`moviedetails-2`">Add to List</b-button>
           </b-col>
         </b-row>
       </b-col>
@@ -42,6 +42,11 @@
           {{ movieDetails.overview }}
         </div>
       </b-col>
+      <Keypress
+        key-event="keydown"
+        :key-code="66"
+        :preventDefault="true"
+        @success="handlePressBack" />
     </b-row>
 </template>
 
@@ -50,10 +55,29 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'MovieDetails',
+  components: {
+    Keypress: () => import('vue-keypress'),
+  },
   computed: {
     ...mapState({
       movieDetails: 'movieDetails',
     }),
+  },
+  watch: {
+    '$store.state.focusPoint': function (nv) {
+      if (nv.componentSection !== 'moviedetails') {
+        return;
+      }
+
+      const refName = `moviedetails-${nv.refNumber}`;
+      const ref = this.$refs[refName];
+      ref.focus();
+    },
+  },
+  methods: {
+    handlePressBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>

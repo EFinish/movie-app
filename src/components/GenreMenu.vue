@@ -23,6 +23,9 @@ export default {
       genres: 'genres',
     }),
   },
+  mounted() {
+    this.$store.dispatch('initGenres');
+  },
   watch: {
     '$store.state.focusPoint': function (nv) {
       if (nv.componentSection !== 'genre') {

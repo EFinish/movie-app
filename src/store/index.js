@@ -9,11 +9,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     genres: [],
-    movies: {},
-    movieDetails: {},
+    movies: [],
+    movieDetails: null,
     focusPoint: {
       refNumber: 0,
-      componentSection: 'genre',
+      componentSection: null,
     },
   },
   mutations: {
@@ -34,15 +34,27 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async initState(context) {
+    async initGenres(context) {
       const genres = await GenreService.getGenres();
 
       context.commit('setGenres', genres);
     },
+    initFocusPointGenre(context) {
+      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'genre' });
+    },
+    initFocusPointMovieDetails(context) {
+      context.commit('setFocusPoint', { refNumber: 0, componentSection: 'moviedetails' });
+    },
     async updateMoviesByGenreId(context, genreId) {
       const movies = await MovieService.getMoviesByGenreId(genreId);
 
-      context.commit('setMovies', movies);
+      context.commit('setMovies', movies.results);
+    },
+    async addMoviesPageByGenreId(context, { page, genreId }) {
+      const movies = await MovieService.getMoviesByGenreId(genreId, page);
+      console.log('new movies!', movies.results);
+      console.log('show mi', [...context.state.movies, ...movies.results]);
+      context.commit('setMovies', [...context.state.movies, ...movies.results]);
     },
     async updateMovieDetailsByMovieId(context, movieId) {
       const movieDetails = await MovieService.getMovieByMovieId(movieId);
@@ -117,11 +129,31 @@ export default new Vuex.Store({
 
       context.commit('setFocusPoint', { refNumber: newRefNumber, componentSection: newComponentSection });
     },
-    handleMovementFromMovieDetails() {
+    handleMovementFromMovieDetails(context, direction) {
+      let newRefNumber = context.state.focusPoint.refNumber;
 
-    },
-    handleBack() {
+      switch (direction) {
+        case 'up':
+        case 'down':
+          break;
+        case 'left':
+          if (newRefNumber > 0) {
+            newRefNumber -= 1;
+          }
+          break;
+        case 'right':
+          if (newRefNumber !== 2) {
+            newRefNumber += 1;
+          }
+          break;
+        default:
+          break;
+      }
 
+      context.commit(
+        'setFocusPoint',
+        { refNumber: newRefNumber, componentSection: context.state.focusPoint.componentSection },
+      );
     },
   },
   modules: {

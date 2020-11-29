@@ -16,10 +16,10 @@ const TheMovieDb = (function () {
     }
   }
 
-  async function getDiscoverMovie({ genreId = null }) {
+  async function getDiscoverMovie({ genreId, page }) {
     try {
       const response = await axios.get(
-        `${apiPrefix}/discover/movie?api_key=${apiKey}&with_genres=${genreId},`,
+        `${apiPrefix}/discover/movie?api_key=${apiKey}&with_genres=${genreId}&page=${page}`,
       );
 
       return response.data;

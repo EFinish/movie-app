@@ -1,16 +1,19 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
-        <h4>{{ movieDetails.title }} ({{ movieDetails.release_date }})</h4>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <MovieDetails />
-      </b-col>
-    </b-row>
-  </b-container>
+  <div>
+    <b-container v-if="movieDetails !== null">
+      <b-row>
+        <b-col>
+          <h4>{{ movieDetails.title }} ({{ movieDetails.release_date }})</h4>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <MovieDetails />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-spinner v-if="movieDetails === null" />
+  </div>
 </template>
 
 <script>

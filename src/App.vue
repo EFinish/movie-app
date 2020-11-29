@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <Keypress
       key-event="keydown"
       :key-code="37"
@@ -21,16 +21,6 @@
       :key-code="40"
       :preventDefault="true"
       @success="handlePressDown" />
-    <!-- <Keypress
-      key-event="keydown"
-      :key-code="13"
-      :preventDefault="true"
-      @success="handlePressEnter" /> -->
-    <Keypress
-      key-event="keydown"
-      :key-code="66"
-      :preventDefault="true"
-      @success="handlePressBack" />
   </div>
 </template>
 
@@ -56,12 +46,6 @@ export default {
     },
     handlePressDown() {
       this.$store.dispatch('handleMovement', 'down');
-    },
-    // handlePressEnter() {
-    //   console.log('enter');
-    // },
-    handlePressBack() {
-      console.log('back');
     },
   },
 };
