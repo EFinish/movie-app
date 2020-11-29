@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <body id="app">
     <router-view :key="$route.fullPath" />
     <Keypress
       key-event="keydown"
@@ -21,7 +21,7 @@
       :key-code="40"
       :preventDefault="true"
       @success="handlePressDown" />
-  </div>
+  </body>
 </template>
 
 <script>
@@ -56,5 +56,7 @@ export default {
   background-color: black;
   color: white;
   font-family: sans-serif;
+  min-height: 100vh;
+  height: 100%;
 }
 </style>

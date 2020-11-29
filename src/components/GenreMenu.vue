@@ -55,8 +55,10 @@ export default {
           break;
         case 'down':
         case 'down2':
-          this.refNumber += 1;
-          this.focusRef();
+          if (this.refNumber < this.genres.length) {
+            this.refNumber += 1;
+            this.focusRef();
+          }
           break;
         case 'right':
         case 'right2':
