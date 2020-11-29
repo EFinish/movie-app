@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Details from '../views/Details.vue';
 import Store from '../store';
 
 Vue.use(VueRouter);
@@ -22,8 +23,8 @@ const routes = [
   },
   {
     path: '/movie/:movieId',
-    name: 'Home',
-    component: Home,
+    name: 'Movie Details',
+    component: Details,
     beforeEnter: (to, from, next) => {
       Store.dispatch('updateMovieDetailsByMovieId', to.params.movieId);
       next();
