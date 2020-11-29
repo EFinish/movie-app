@@ -50,7 +50,6 @@ export default {
       const refs = this.$refs[refName];
       if (!refs) {
         this.pageNumber += 1;
-        // fetch new
         this.$store.dispatch(
           'addMoviesPageByGenreId',
           { page: this.pageNumber, genreId: this.$route.params.genreId },
