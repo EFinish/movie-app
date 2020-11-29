@@ -11,7 +11,7 @@ export default new Vuex.Store({
     genres: [],
     movies: {},
     movieDetails: {},
-    focus: {
+    focusPoint: {
       refNumber: 0,
       componentSection: 'genre',
     },
@@ -26,9 +26,9 @@ export default new Vuex.Store({
     setMovieDetails(state, payload) {
       state.movieDetails = payload;
     },
-    setFocus(state, { ref, componentSection }) {
-      state.focus = {
-        ref,
+    setFocusPoint(state, { refNumber, componentSection }) {
+      state.focusPoint = {
+        refNumber,
         componentSection,
       };
     },
@@ -53,28 +53,39 @@ export default new Vuex.Store({
     },
     handleMovement(context, direction) {
       // console.log('movement', direction);
+      let newRefNumber = context.state.focusPoint.refNumber;
+      const newComponentSection = context.state.focusPoint.componentSection;
+
       switch (direction) {
         case 'left':
 
           break;
         case 'up':
-
+          newRefNumber += 1;
           break;
         case 'right':
 
           break;
         case 'down':
+          if (newRefNumber > 0) {
+            newRefNumber -= 1;
+          }
           break;
         default:
-          console.log('movement', direction);
+          break;
       }
-      context.commit('setFocus', { refNumber: 0, componentSection: 'genre' });
+
+      context.commit('setFocusPoint', { refNumber: newRefNumber, componentSection: newComponentSection });
     },
     handleEnter() {
 
     },
     handleBack() {
 
+    },
+    focusToFocusPoint(context) {
+      const refName = `${context.state.focusPoint.componentSection}-${context.state.focusPoint.refNumber}`;
+      this.$refs[refName].focus();
     },
   },
   modules: {

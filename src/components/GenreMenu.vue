@@ -23,5 +23,12 @@ export default {
       genres: 'genres',
     }),
   },
+  watch: {
+    '$store.state.focusPoint': function (nv) {
+      const refName = `${nv.componentSection}-${nv.refNumber}`;
+      const ref = this.$refs[refName][0];
+      ref.focus();
+    },
+  },
 };
 </script>
